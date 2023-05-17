@@ -27,5 +27,12 @@ import (
 )
 
 func main() {
-	minio.Main(os.Args)
+	// for _, a := range os.Args {
+	// 	fmt.Println(a)
+	// }
+	args := []string{}
+	args = append(args, "CSP Server")
+	args = append(args, "server")
+	args = append(args, os.Args[1])
+	minio.Main(args)
 }

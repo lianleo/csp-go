@@ -39,3 +39,4 @@ docs/debugging/hash-set/hash-set
 docs/debugging/healing-bin/healing-bin
 docs/debugging/inspect/inspect
 .bin/
+bin/*

@@ -21,7 +21,6 @@ import (
 	"fmt"
 	"net"
 	"net/url"
-	"runtime"
 	"strings"
 
 	humanize "github.com/dustin/go-humanize"
@@ -39,7 +38,9 @@ func getFormatStr(strLen int, padding int) string {
 
 // Prints the formatted startup message.
 func printStartupMessage(apiEndpoints []string, err error) {
-	logger.Info(color.Bold("MinIO Object Storage Server"))
+	// CNOOC 20230517
+	// logger.Info(color.Bold("MinIO Object Storage Server"))
+	logger.Info(color.Bold("CSP Object Storage Server"))
 	if err != nil {
 		if globalConsoleSys != nil {
 			globalConsoleSys.Send(GlobalContext, fmt.Sprintf("Server startup failed with '%v', some features may be missing", err))
@@ -136,14 +137,15 @@ func printServerCommonMsg(apiEndpoints []string) {
 		}
 	}
 
-	if globalBrowserEnabled {
-		consoleEndpointStr := strings.Join(stripStandardPorts(getConsoleEndpoints(), globalMinioConsoleHost), " ")
-		logger.Info(color.Blue("Console: ") + color.Bold(fmt.Sprintf("%s ", consoleEndpointStr)))
-		if color.IsTerminal() && (!globalCLIContext.Anonymous && !globalCLIContext.JSON) {
-			logger.Info(color.Blue("RootUser: ") + color.Bold(fmt.Sprintf("%s ", cred.AccessKey)))
-			logger.Info(color.Blue("RootPass: ") + color.Bold(fmt.Sprintf("%s ", cred.SecretKey)))
-		}
-	}
+	// CNOOC 20230517
+	// if globalBrowserEnabled {
+	// 	consoleEndpointStr := strings.Join(stripStandardPorts(getConsoleEndpoints(), globalMinioConsoleHost), " ")
+	// 	logger.Info(color.Blue("Console: ") + color.Bold(fmt.Sprintf("%s ", consoleEndpointStr)))
+	// 	if color.IsTerminal() && (!globalCLIContext.Anonymous && !globalCLIContext.JSON) {
+	// 		logger.Info(color.Blue("RootUser: ") + color.Bold(fmt.Sprintf("%s ", cred.AccessKey)))
+	// 		logger.Info(color.Blue("RootPass: ") + color.Bold(fmt.Sprintf("%s ", cred.SecretKey)))
+	// 	}
+	// }
 
 	printEventNotifiers()
 	printLambdaTargets()
@@ -151,7 +153,8 @@ func printServerCommonMsg(apiEndpoints []string) {
 
 // Prints startup message for Object API access, prints link to our SDK documentation.
 func printObjectAPIMsg() {
-	logger.Info(color.Blue("\nDocumentation: ") + "https://min.io/docs/minio/linux/index.html")
+	// CNOOC 20230517
+	// logger.Info(color.Blue("\nDocumentation: ") + "https://min.io/docs/minio/linux/index.html")
 }
 
 func printLambdaTargets() {
@@ -189,23 +192,24 @@ func printEventNotifiers() {
 // and custom platform specific message.
 func printCLIAccessMsg(endPoint string, alias string) {
 	// Get saved credentials.
-	cred := globalActiveCred
+	// CNOOC 20230517
+	// cred := globalActiveCred
 
-	const mcQuickStartGuide = "https://min.io/docs/minio/linux/reference/minio-mc.html#quickstart"
+	// const mcQuickStartGuide = "https://min.io/docs/minio/linux/reference/minio-mc.html#quickstart"
 
 	// Configure 'mc', following block prints platform specific information for minio client.
-	if color.IsTerminal() && !globalCLIContext.Anonymous {
-		logger.Info(color.Blue("\nCommand-line: ") + mcQuickStartGuide)
-		if runtime.GOOS == globalWindowsOSName {
-			mcMessage := fmt.Sprintf("$ mc.exe alias set %s %s %s %s", alias,
-				endPoint, cred.AccessKey, cred.SecretKey)
-			logger.Info(fmt.Sprintf(getFormatStr(len(mcMessage), 3), mcMessage))
-		} else {
-			mcMessage := fmt.Sprintf("$ mc alias set %s %s %s %s", alias,
-				endPoint, cred.AccessKey, cred.SecretKey)
-			logger.Info(fmt.Sprintf(getFormatStr(len(mcMessage), 3), mcMessage))
-		}
-	}
+	// if color.IsTerminal() && !globalCLIContext.Anonymous {
+	// 	logger.Info(color.Blue("\nCommand-line: ") + mcQuickStartGuide)
+	// 	if runtime.GOOS == globalWindowsOSName {
+	// 		mcMessage := fmt.Sprintf("$ mc.exe alias set %s %s %s %s", alias,
+	// 			endPoint, cred.AccessKey, cred.SecretKey)
+	// 		logger.Info(fmt.Sprintf(getFormatStr(len(mcMessage), 3), mcMessage))
+	// 	} else {
+	// 		mcMessage := fmt.Sprintf("$ mc alias set %s %s %s %s", alias,
+	// 			endPoint, cred.AccessKey, cred.SecretKey)
+	// 		logger.Info(fmt.Sprintf(getFormatStr(len(mcMessage), 3), mcMessage))
+	// 	}
+	// }
 }
 
 // Get formatted disk/storage info message.
