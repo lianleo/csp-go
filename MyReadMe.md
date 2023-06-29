@@ -23,4 +23,10 @@ go build -o bin/csp_arm64 main.go
 
 
 
-csp_win_x64 server D:/DEV/minio_x64/csp_data
+csp_win_x64 D:/DEV/minio_x64/csp_data
+
+
+nohup ./csp_arm64 csp_server_data > csp_server.log
+
+nohup ./csp_arm64 csp_server_data > csp_server.log & echo $! > csp_pid.lock
+

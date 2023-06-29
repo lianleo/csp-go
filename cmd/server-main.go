@@ -628,9 +628,10 @@ func serverMain(ctx *cli.Context) {
 	}
 
 	if globalActiveCred.Equal(auth.DefaultCredentials) {
-		msg := fmt.Sprintf("WARNING: Detected default credentials '%s', we recommend that you change these values with 'MINIO_ROOT_USER' and 'MINIO_ROOT_PASSWORD' environment variables",
-			globalActiveCred)
-		logger.Info(color.RedBold(msg))
+		// CNOOC 20230517
+		// msg := fmt.Sprintf("WARNING: Detected default credentials '%s', we recommend that you change these values with 'CSP_ROOT_USER' and 'CSP_ROOT_PASSWORD' environment variables",
+		// 	globalActiveCred)
+		// logger.Info(color.RedBold(msg))
 	}
 
 	bootstrapTrace("initializing the server")

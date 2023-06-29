@@ -732,14 +732,14 @@ func handleCommonEnvVars() {
 	// Check all error conditions first
 	//nolint:gocritic
 	if !env.IsSet(config.EnvRootUser) && env.IsSet(config.EnvRootPassword) {
-		logger.Fatal(config.ErrMissingEnvCredentialRootUser(nil), "Unable to start MinIO")
+		logger.Fatal(config.ErrMissingEnvCredentialRootUser(nil), "Unable to start CSP")
 	} else if env.IsSet(config.EnvRootUser) && !env.IsSet(config.EnvRootPassword) {
-		logger.Fatal(config.ErrMissingEnvCredentialRootPassword(nil), "Unable to start MinIO")
+		logger.Fatal(config.ErrMissingEnvCredentialRootPassword(nil), "Unable to start CSP")
 	} else if !env.IsSet(config.EnvRootUser) && !env.IsSet(config.EnvRootPassword) {
 		if !env.IsSet(config.EnvAccessKey) && env.IsSet(config.EnvSecretKey) {
-			logger.Fatal(config.ErrMissingEnvCredentialAccessKey(nil), "Unable to start MinIO")
+			logger.Fatal(config.ErrMissingEnvCredentialAccessKey(nil), "Unable to start CSP")
 		} else if env.IsSet(config.EnvAccessKey) && !env.IsSet(config.EnvSecretKey) {
-			logger.Fatal(config.ErrMissingEnvCredentialSecretKey(nil), "Unable to start MinIO")
+			logger.Fatal(config.ErrMissingEnvCredentialSecretKey(nil), "Unable to start CSP")
 		}
 	}
 
